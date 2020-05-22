@@ -17,6 +17,16 @@ use WPGraphQL\Model\Post;
 use WPGraphQL\Model\Term;
 use WPGraphQL\Model\User;
 
+// WPGraphQLGravityForms classes
+use WPGraphQLGravityForms\Types\Form\Form;
+use WPGraphQLGravityForms\DataManipulators;
+use WPGraphQLGravityForms\Types\Form\FormPagination;
+use WPGraphQLGravityForms\Types\Form\FormNotification;
+use WPGraphQLGravityForms\Types\Form\FormConfirmation;
+use WPGraphQLGravityForms\Types\Form\SaveAndContinue;
+use WPGraphQLGravityForms\Types\Union\ObjectFieldUnion;
+use WPGraphQLGravityForms\Types\Button\Button;
+
 
 /**
  * Config class.
@@ -24,6 +34,12 @@ use WPGraphQL\Model\User;
 class Config {
 
 	protected $type_registry;
+
+	/**
+	 * FormDataManipulator instance.
+	 */
+	private $fields_data_manipulator;
+	private $form_data_manipulator;
 
 	/**
 	 * Initialize WPGraphQL to ACF
@@ -35,6 +51,12 @@ class Config {
 		 * Set the TypeRegistry
 		 */
 		$this->type_registry = $type_registry;
+
+		/**
+		 * Set the DataManipulators
+		 */
+		$this->fields_data_manipulator = new DataManipulators\FieldsDataManipulator();
+		$this->form_data_manipulator   = new DataManipulators\FormDataManipulator( $this->fields_data_manipulator );
 
 		/**
 		 * Add ACF Fields to GraphQL Types
