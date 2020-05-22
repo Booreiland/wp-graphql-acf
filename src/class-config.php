@@ -333,7 +333,8 @@ class Config {
 			'color_picker',
 			'group',
 			'repeater',
-			'flexible_content'
+			'flexible_content',
+			'forms'
 		];
 
 		/**
